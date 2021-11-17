@@ -8,7 +8,6 @@ class WaitPerson extends Thread {
     }
 
     public void run() {
-        System.out.println("hi");
         while (true) {
             while (restaurant.order == null)
                 synchronized (this) {
