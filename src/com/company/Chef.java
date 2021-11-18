@@ -15,7 +15,6 @@ class Chef extends Thread {
     }
 
     public void run() {
-        System.out.println("hi Chef");
         while (true) {
             if (restaurant.order == null) {
                 restaurant.order = new Order(restaurant.menu, chefCapacity);

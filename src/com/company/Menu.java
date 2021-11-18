@@ -7,7 +7,7 @@ public class Menu {
     static int noOfItems=0;
 
     Menu() {
-        System.out.println("Hey we are creating the Menu for out resturatnt");
+        System.out.println("Hey we are creating the Menu for the resturatnt");
         Scanner in=new Scanner(System.in);
         System.out.println("How many of items do you want to add?");
         int noOfItems=in.nextInt();
