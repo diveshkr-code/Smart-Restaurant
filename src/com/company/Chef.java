@@ -4,29 +4,29 @@ import java.util.Scanner;
 
 class Chef extends Thread {
     private Restaurant restaurant;
-    private WaitPerson waitPerson;
     private int chefCapacity;
-    public Chef(Restaurant r, WaitPerson w) {
+    Customer currentCustomer;
+    public Chef(Restaurant r) {
         restaurant = r;
-        waitPerson = w;
-        Scanner in=new Scanner(System.in);
-        System.out.println("Input the order capacity of your chef");
-        chefCapacity =in.nextInt();
+//        TODO Order capacity
+//        Scanner in=new Scanner(System.in);
+//        System.out.println("Input the order capacity of your chef");
+//        chefCapacity =in.nextInt();
     }
 
     public void run() {
         while (true) {
-            if (restaurant.order == null) {
-                restaurant.order = new Order(restaurant.menu, chefCapacity);
+            if (!restaurant.customerList.isEmpty()) {
+                currentCustomer=restaurant.customerList.get(0);
                 try {
                     System.out.println("Preparing Order...");
-                    sleep(10000);
+                    sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 System.out.print("Order up! ");
-                synchronized (waitPerson) {
-                    waitPerson.notify();
+                synchronized (currentCustomer) {
+                    currentCustomer.notify();
                 }
             }
             try {

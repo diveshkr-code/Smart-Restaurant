@@ -3,9 +3,9 @@ package com.company;
 import java.util.Scanner;
 
 public class Tables {
-    int NO_TWO=0;
-    int NO_FOUR=0;
-    int NO_SIX=0;
+    public int NO_TWO=0;
+    public int NO_FOUR=0;
+    public int NO_SIX=0;
 
     public Tables() {
         Scanner in=new Scanner(System.in);
@@ -34,16 +34,12 @@ public class Tables {
         }
     }
 
-    public boolean checkEmpty(int numOfPeople) {
-        if(numOfPeople<=2)
-            return NO_TWO>0||NO_FOUR>0||NO_SIX>0;
-        else if(numOfPeople<=4)
-            return NO_FOUR>0||NO_SIX>0;
-        else if(numOfPeople<=6)
-            return NO_SIX>0;
-        else
-            return NO_TWO>0&&checkEmpty(numOfPeople-2) ||
-                    NO_FOUR>0&&checkEmpty(numOfPeople-4)||
-                    NO_SIX>0&&checkEmpty(numOfPeople-6);
+//    public boolean checkEmpty(int numOfPeople) {
+//
+//        return false;
+//    }
+    public boolean leaveTable(int noOfPeople) {
+//        TODO
+
     }
 }
