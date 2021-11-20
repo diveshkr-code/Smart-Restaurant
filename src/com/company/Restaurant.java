@@ -17,7 +17,6 @@ public class Restaurant extends Thread {
 
     protected State getState(int numOfPeople) {
         if(this.tables.checkEmpty(numOfPeople))
-        if(this.tables.checkEmpty(numOfPeople))
             return State.OPEN;
         else
             return State.FULL;
@@ -28,7 +27,7 @@ public class Restaurant extends Thread {
 //        After TODO secs it will be closed
         state=State.OPEN;
         try {
-            Thread.sleep(10000);
+            Thread.sleep(300000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -101,14 +100,14 @@ public class Restaurant extends Thread {
 
         Chef chef=new Chef(restaurant);
 
-//        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-//        executor.scheduleAtFixedRate(new Runnable() {
-//            public void run() {
-//                Customer customer = new Customer(restaurant);
-//                restaurant.customerList.add(customer);
-//                customer.start();
-//            }
-//        }, 0, 3, TimeUnit.SECONDS);
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.scheduleAtFixedRate(new Runnable() {
+            public void run() {
+                Customer customer = new Customer(restaurant);
+                restaurant.customerList.add(customer);
+                customer.start();
+            }
+        }, 0, 20, TimeUnit.SECONDS);
 
 
     }

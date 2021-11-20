@@ -29,14 +29,16 @@ class Customer extends Thread {
             }
             order=new Order(restaurant.menu);
             this.customerStatus=CustomerStatus.ORDERED;
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            synchronized (this) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             this.customerStatus=CustomerStatus.SERVED;
             synchronized (this) {
-                restaurant.tables.leaveTable(numOfPeople);
+                restaurant.exitCustomer(this);
             }
         }
     }

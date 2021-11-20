@@ -34,12 +34,18 @@ public class Tables {
         }
     }
 
-//    public boolean checkEmpty(int numOfPeople) {
-//
-//        return false;
-//    }
-    public boolean leaveTable(int noOfPeople) {
-//        TODO
+    public boolean checkEmpty(int numOfPeople) {
+        if(numOfPeople<=2)
+            return NO_TWO>0||NO_FOUR>0||NO_SIX>0;
+        else if(numOfPeople<=4)
+            return NO_FOUR>0||NO_SIX>0;
+        else if(numOfPeople<=6)
+            return NO_SIX>0;
+        else
+            return NO_TWO>0&&checkEmpty(numOfPeople-2) ||
+                    NO_FOUR>0&&checkEmpty(numOfPeople-4)||
+                    NO_SIX>0&&checkEmpty(numOfPeople-6);
 
     }
+
 }
