@@ -24,22 +24,35 @@ class Customer extends Thread {
         while (this.customerStatus==CustomerStatus.ARRIVED) {
             synchronized (this) {
                 if(restaurant.state==Restaurant.State.OPEN ) {
-                    this.customerStatus=CustomerStatus.SEATED;
+                    if(restaurant.seatCustomer(this)) {
+                        this.customerStatus=CustomerStatus.SEATED;
+                        System.out.println("Here have a seat we will be taking your order now");
+                    }
+                    else {
+                        System.out.println("Sorry we are running low on seats please come back later");
+                    }
                 }
             }
-            order=new Order(restaurant.menu);
-            this.customerStatus=CustomerStatus.ORDERED;
-            synchronized (this) {
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+
+            if (this.customerStatus== CustomerStatus.SEATED) {
+                order=new Order(restaurant.menu);
+                this.customerStatus=CustomerStatus.ORDERED;
+                restaurant.revenue+=this.order.orderCost;
+                System.out.println("Hang Tight we are preparing your order !!!");
+
+                synchronized (this) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                this.customerStatus=CustomerStatus.SERVED;
+                synchronized (this) {
+                    restaurant.exitCustomer(this);
                 }
             }
-            this.customerStatus=CustomerStatus.SERVED;
-            synchronized (this) {
-                restaurant.exitCustomer(this);
-            }
+            this.customerStatus= CustomerStatus.LEFT;
         }
     }
 }

@@ -11,7 +11,9 @@ class Order {
 
     public Order(Menu menu) {
         orderCost=0;
+        System.out.println("-----   MENU    -----");
         menu.displayMenu();
+        System.out.println("---------------------");
 
         Scanner in=new Scanner(System.in);
         System.out.println("List the number of items you want to order");
@@ -26,7 +28,6 @@ class Order {
         }
 
         System.out.println("Your orderCost  is "+ orderCost);
-
     }
 
     public String toString() {

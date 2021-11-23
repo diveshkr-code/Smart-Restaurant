@@ -10,6 +10,7 @@ public class Restaurant extends Thread {
     Menu menu;
     Tables tables;
     List<Customer> customerList;
+    protected double revenue;
 
     //    State of the Restaurant
     public enum State{CLOSED, FULL, OPEN};
@@ -33,6 +34,7 @@ public class Restaurant extends Thread {
         }
 
         System.out.println("Sorry Folks we are closing, see you tommorow");
+        System.out.println("The Revenue for this session was: "+revenue);
         state=State.CLOSED;
     }
 
@@ -42,6 +44,7 @@ public class Restaurant extends Thread {
         tables=new Tables();
         menu=new Menu();
         customerList=new ArrayList<Customer>();
+        revenue=0.0;
     }
     public boolean seatCustomer(Customer c) {
         if(c.numOfPeople<=2) {
@@ -83,6 +86,7 @@ public class Restaurant extends Thread {
             }
         }
         return false;
+//        TODO revneue from bill
     }
     public void exitCustomer(Customer c) {
         tables.NO_TWO+=c.NO_TWO;
