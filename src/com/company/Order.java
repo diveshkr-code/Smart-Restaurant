@@ -8,7 +8,8 @@ class Order {
     List<String> itemsOrdered=new ArrayList<>();
     int numOfItems=0;
     double orderCost;
-
+    static int lastOrderNo=1;
+    int orderNo;
     public Order(Menu menu) {
         orderCost=0;
         System.out.println("-----   MENU    -----");
@@ -26,8 +27,9 @@ class Order {
             itemsOrdered.add(item);
             orderCost+=menu.itemPriceList.get(item);
         }
-
-        System.out.println("Your orderCost  is "+ orderCost);
+        orderNo=lastOrderNo++;
+        System.out.println("Your order Cost  is "+ orderCost);
+        System.out.println("Your order Number  is "+ orderNo);
     }
 
     public String toString() {

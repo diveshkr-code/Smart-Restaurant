@@ -1,10 +1,14 @@
 package com.company;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Restaurant extends Thread {
     Menu menu;
@@ -33,9 +37,14 @@ public class Restaurant extends Thread {
             e.printStackTrace();
         }
 
-        System.out.println("Sorry Folks we are closing, see you tommorow");
-        System.out.println("The Revenue for this session was: "+revenue);
-        state=State.CLOSED;
+        while (true){
+            if (customerList.isEmpty()) {
+                System.out.println("Sorry Folks we are closing, see you tommorow");
+                System.out.println("The Revenue for this session was: "+revenue);
+                state=State.CLOSED;
+                break;
+            }
+        }
     }
 
 
@@ -99,19 +108,23 @@ public class Restaurant extends Thread {
         c.customerStatus= Customer.CustomerStatus.LEFT;
     }
     public static void main(String[] args) {
+        JFrame frame=new JFrame();
         Restaurant restaurant = new Restaurant();
         restaurant.start();
 
         Chef chef=new Chef(restaurant);
-
+        chef.start();
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        ScheduledFuture<?> scheduledFuture = null;
         executor.scheduleAtFixedRate(new Runnable() {
             public void run() {
+                if(restaurant.customerList.size()>10)
+                    scheduledFuture.cancel(true);
                 Customer customer = new Customer(restaurant);
                 restaurant.customerList.add(customer);
                 customer.start();
             }
-        }, 0, 20, TimeUnit.SECONDS);
+        }, 10, 20, TimeUnit.SECONDS);
 
 
     }
