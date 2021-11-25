@@ -63,7 +63,7 @@ public class Restaurant extends Thread {
     Restaurant() {
         tables=new Tables();
         menu=new Menu();
-        customerList=new ArrayList<Customer>();
+        customerList=new ArrayList<>();
         revenue=0.0;
     }
     public boolean seatCustomer(Customer c) {
