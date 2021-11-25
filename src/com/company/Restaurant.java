@@ -49,7 +49,11 @@ public class Restaurant extends Thread {
                 break;
             }
             else {
-                ;
+                try {
+                    sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.company;
 
-import java.util.Scanner;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -27,7 +26,6 @@ class Chef extends Thread {
                     }
                     showMessageDialog(null, "Order Up for Order No: "+currentOrder.orderNo);
                     synchronized (currentCustomer) {
-                        restaurant.customerList.remove(currentCustomer);
                         currentCustomer.notify();
                     }
                     break;
