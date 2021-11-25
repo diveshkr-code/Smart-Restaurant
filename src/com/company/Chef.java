@@ -11,10 +11,6 @@ class Chef extends Thread {
     Order currentOrder;
     public Chef(Restaurant r) {
         restaurant = r;
-//        TODO Order capacity
-//        Scanner in=new Scanner(System.in);
-//        System.out.println("Input the order capacity of your chef");
-//        chefCapacity =in.nextInt();
     }
 
     public void run() {
@@ -30,8 +26,8 @@ class Chef extends Thread {
                         e.printStackTrace();
                     }
                     showMessageDialog(null, "Order Up for Order No: "+currentOrder.orderNo);
-                    restaurant.customerList.remove(currentCustomer);
                     synchronized (currentCustomer) {
+                        restaurant.customerList.remove(currentCustomer);
                         currentCustomer.notify();
                     }
                     break;

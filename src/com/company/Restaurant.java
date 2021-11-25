@@ -42,10 +42,14 @@ public class Restaurant extends Thread {
 
         while (true){
             if (customerList.isEmpty()) {
-                System.out.println("Sorry Folks we are closing, see you tommorow");
-                System.out.println("The Revenue for this session was: "+revenue);
+                showMessageDialog(null, "Sorry Folks we are closing, see you tommorow \n " +
+                        "The Revenue for this session was: "+revenue);
+
                 state=State.CLOSED;
                 break;
+            }
+            else {
+                ;
             }
         }
     }
@@ -108,7 +112,9 @@ public class Restaurant extends Thread {
         c.NO_TWO=0;
         c.NO_FOUR=0;
         c.NO_SIX=0;
+        this.customerList.remove(c);
         c.customerStatus= Customer.CustomerStatus.LEFT;
+
     }
 
     public static void main(String[] args) {
@@ -126,6 +132,7 @@ public class Restaurant extends Thread {
 //        period
         executor.scheduleAtFixedRate(new Runnable() {
             public void run() {
+//                Parameter: TODO
                 if(restaurant.customerList.size()>10)
                     scheduledFuture.cancel(true);
                 Customer customer = new Customer(restaurant);

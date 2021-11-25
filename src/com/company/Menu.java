@@ -29,9 +29,6 @@ public class Menu {
         itemPriceList.put(name,price);
         noOfItems++;
     }
-    private void changePrice(String name, Double price) {
-//        TODO
-    }
 
     public void displayMenu() {
         for (Map.Entry mapElement : itemPriceList.entrySet()) {
