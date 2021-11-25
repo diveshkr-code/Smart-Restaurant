@@ -1,10 +1,9 @@
 package com.company;
 
-import java.util.Scanner;
 
 class Customer extends Thread {
     private Restaurant restaurant;
-    public enum CustomerStatus {ARRIVED, SEATED, ORDERED, SERVED,LEFT};
+    public enum CustomerStatus {ARRIVED, SEATED, ORDERED, SERVED,LEFT}
     public CustomerStatus customerStatus= CustomerStatus.ARRIVED;
     int numOfPeople;
     Order order;
@@ -15,9 +14,8 @@ class Customer extends Thread {
 
     public Customer(Restaurant r) {
         restaurant = r;
-        Scanner in=new Scanner(System.in);
         System.out.println("WELCOME!! How many people are there?");
-        numOfPeople=in.nextInt();
+        numOfPeople=restaurant.in.nextInt();
     }
 
     public void run() {
@@ -25,6 +23,7 @@ class Customer extends Thread {
             synchronized (this) {
                 if(restaurant.state==Restaurant.State.OPEN ) {
                     if(restaurant.seatCustomer(this)) {
+                        restaurant.customerList.add(this);
                         this.customerStatus=CustomerStatus.SEATED;
                         System.out.println("Here have a seat we will be taking your order now");
                     }

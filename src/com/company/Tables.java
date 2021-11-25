@@ -2,13 +2,14 @@ package com.company;
 
 import java.util.Scanner;
 
+import static com.company.Restaurant.in;
+
 public class Tables {
     public int NO_TWO=0;
     public int NO_FOUR=0;
     public int NO_SIX=0;
 
     public Tables() {
-        Scanner in=new Scanner(System.in);
         System.out.println("We will decide the seating of the resturant");
         System.out.println("Input the number of tables with capacity of 2");
         NO_TWO=in.nextInt();

@@ -3,6 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -15,6 +16,7 @@ public class Restaurant extends Thread {
     Tables tables;
     List<Customer> customerList;
     protected double revenue;
+    public static Scanner in = new Scanner(System.in);
 
     //    State of the Restaurant
     public enum State{CLOSED, FULL, OPEN};
@@ -33,7 +35,7 @@ public class Restaurant extends Thread {
         state=State.OPEN;
         try {
 //            Parameter: time after which resturant closes if no customer is there
-            Thread.sleep(300000);
+            Thread.sleep(25000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -127,10 +129,9 @@ public class Restaurant extends Thread {
                 if(restaurant.customerList.size()>10)
                     scheduledFuture.cancel(true);
                 Customer customer = new Customer(restaurant);
-                restaurant.customerList.add(customer);
                 customer.start();
             }
-        }, 10, 15, TimeUnit.SECONDS);
+        }, 15, 25, TimeUnit.SECONDS);
 
 
     }
