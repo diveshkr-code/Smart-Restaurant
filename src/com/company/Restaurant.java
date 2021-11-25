@@ -32,6 +32,7 @@ public class Restaurant extends Thread {
 //        After TODO secs it will be closed
         state=State.OPEN;
         try {
+//            Parameter: time after which resturant closes if no customer is there
             Thread.sleep(300000);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -107,6 +108,7 @@ public class Restaurant extends Thread {
         c.NO_SIX=0;
         c.customerStatus= Customer.CustomerStatus.LEFT;
     }
+
     public static void main(String[] args) {
         JFrame frame=new JFrame();
         Restaurant restaurant = new Restaurant();
@@ -114,8 +116,12 @@ public class Restaurant extends Thread {
 
         Chef chef=new Chef(restaurant);
         chef.start();
+
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         ScheduledFuture<?> scheduledFuture = null;
+//        Parameters
+//        intialDelay
+//        period
         executor.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 if(restaurant.customerList.size()>10)
@@ -124,7 +130,7 @@ public class Restaurant extends Thread {
                 restaurant.customerList.add(customer);
                 customer.start();
             }
-        }, 10, 20, TimeUnit.SECONDS);
+        }, 10, 15, TimeUnit.SECONDS);
 
 
     }

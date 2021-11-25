@@ -24,8 +24,8 @@ class Chef extends Thread {
                 currentOrder=currentCustomer.order;
                 while(currentOrder!=null) {
                     try {
-//                        time taken to prepare a meal is propotional to number of Items
-                        sleep(currentOrder.numOfItems*1000);
+//                        Parameter: time taken to prepare a meal is propotional to number of Items
+                        sleep(currentOrder.numOfItems*25000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
